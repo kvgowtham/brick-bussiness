@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Brick Business Manager</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f3f5f7;
+            color: #222;
+        }
+
+
+        /* HEADER */
+
+        header {
+            background: linear-gradient(135deg, #762d22, #b84b2d);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+
+        header p {
+            opacity: 0.9;
+        }
+
+
+        /* MAIN */
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 25px 20px 50px;
+        }
+
+
+        .section-title {
+            margin: 30px 0 15px;
+            font-size: 24px;
+        }
+
+
+        /* DATE BAR */
+
+        .date-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+
+        .date-bar label {
+            font-weight: bold;
+        }
+
+
+        .date-bar input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+
+        .selected-date {
+            font-weight: bold;
+            color: #762d22;
+            font-size: 18px;
+        }
+
+
+        /* DASHBOARD */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+
+        .card h3 {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #762d22;
+        }
+
+
+        /* BRICK CARDS */
+
+        .brick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+
+        .brick-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+
+        .brick-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+
+        .brick-price {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+
+        .brick-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+
+        .brick-info div {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+        .brick-info strong {
+            display: block;
+            font-size: 21px;
+            margin-top: 7px;
+        }
+
+
+        /* FORM */
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+
+        button {
+            margin-top: 20px;
+
+            padding: 13px 25px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #762d22;
+            color: white;
+
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #541f18;
+        }
+
+
+        .danger {
+            background: #d32f2f;
+        }
+
+
+        .danger:hover {
+            background: #a92121;
+        }
+
+
+        /* SALES */
+
+        .sales-summary {
+            margin-top: 20px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .sales-item {
+            background: #fff4ed;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+
+        .sales-item h4 {
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+
+        .sales-item strong {
+            font-size: 23px;
+            color: #762d22;
+        }
+
+
+        /* WORKERS */
+
+        .worker-list {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            background: white;
+
+            border-radius: 12px;
+            overflow: hidden;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        th {
+            background: #762d22;
+            color: white;
+        }
+
+
+        .salary {
+            color: green;
+            font-weight: bold;
+        }
+
+
+        /* CALENDAR */
+
+        .calendar-box {
+            background: white;
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .calendar-header button {
+            margin: 0;
+
+            padding: 8px 15px;
+        }
+
+
+        .calendar-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        .calendar-days,
+        .calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 7px;
+        }
+
+
+        .calendar-days div {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 0;
+
+            color: #666;
+        }
+
+
+        .calendar-date {
+            min-height: 55px;
+
+            border: 1px solid #eee;
+
+            border-radius: 8px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            position: relative;
+
+            background: #fafafa;
+        }
+
+
+        .calendar-date:hover {
+            background: #f0e4df;
+        }
+
+
+        .calendar-date.today {
+            border: 2px solid #762d22;
+            font-weight: bold;
+        }
+
+
+        .calendar-date.selected {
+            background: #762d22;
+            color: white;
+        }
+
+
+        .calendar-date.has-data::after {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            background: #28a745;
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            bottom: 5px;
+        }
+
+
+        .calendar-date.selected::after {
+            background: white;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #222;
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 20px;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width: 900px) {
+
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .brick-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+
+            .container {
+                padding: 15px 10px 40px;
+            }
+
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .brick-info {
+                grid-template-columns: 1fr;
+            }
+
+
+            .sales-summary {
+                grid-template-columns: 1fr;
+            }
+
+
+            .calendar-date {
+                min-height: 42px;
+            }
+
+
+            .calendar-days div {
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <h1>🧱 Brick Business Manager</h1>
+
+    <p>
+        Stock • Sales • Workers • Salary • Daily Records
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- DATE -->
+
+    <div class="date-bar">
+
+        <div>
+
+            <label>
+                Select Date
+            </label>
+
+            <input
+                type="date"
+                id="selectedDate"
+                onchange="changeDate()"
+            >
+
+        </div>
+
+
+        <div class="selected-date">
+
+            Current Record:
+            <span id="displayDate"></span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DASHBOARD -->
+
+    <h2 class="section-title">
+        📊 Daily Dashboard
+    </h2>
+
+
+    <div class="dashboard">
+
+
+        <div class="card">
+
+            <h3>
+                Total Bricks
+            </h3>
+
+            <div
+                class="number"
+                id="totalBricks"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Total Sold
+            </h3>
+
+            <div
+                class="number"
+                id="soldBricks"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Remaining
+            </h3>
+
+            <div
+                class="number"
+                id="remainingBricks"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Today's Sales
+            </h3>
+
+            <div class="number">
+
+                ₹<span id="todaySales">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BRICK STOCK -->
+
+    <h2 class="section-title">
+        📦 Brick Stock
+    </h2>
+
+
+    <div class="brick-grid">
+
+
+        <!-- 4 INCH -->
+
+        <div class="brick-card">
+
+            <h3>
+                🧱 4-Inch Cement Brick
+            </h3>
+
+            <div class="brick-price">
+
+                Selling Price:
+                <strong>₹18</strong> / brick
+
+            </div>
+
+
+            <div class="brick-info">
+
+                <div>
+
+                    Total
+
+                    <strong id="fourTotal">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Sold
+
+                    <strong id="fourSold">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Remaining
+
+                    <strong id="fourRemaining">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- 6 INCH -->
+
+        <div class="brick-card">
+
+            <h3>
+                🧱 6-Inch Cement Brick
+            </h3>
+
+            <div class="brick-price">
+
+                Selling Price:
+                <strong>₹22</strong> / brick
+
+                <br><br>
+
+                Worker Payment:
+                <strong>₹2</strong> / brick made
+
+            </div>
+
+
+            <div class="brick-info">
+
+                <div>
+
+                    Total
+
+                    <strong id="sixTotal">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Sold
+
+                    <strong id="sixSold">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Remaining
+
+                    <strong id="sixRemaining">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ADD STOCK -->
+
+    <h2 class="section-title">
+        ➕ Add Stock
+    </h2>
+
+
+    <div class="form-box">
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label>
+                    Brick Type
+                </label>
+
+
+                <select id="stockType">
+
+                    <option value="4">
+                        4-Inch Brick — ₹18
+                    </option>
+
+                    <option value="6">
+                        6-Inch Brick — ₹22
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Number of Bricks
+                </label>
+
+
+                <input
+                    type="number"
+                    id="stockQuantity"
+                    min="1"
+                    placeholder="Example: 50"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <button onclick="addStock()">
+
+            Add Stock
+
+        </button>
+
+    </div>
+
+
+
+    <!-- SALES -->
+
+    <h2 class="section-title">
+        💰 Record Sales
+    </h2>
+
+
+    <div class="form-box">
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label>
+                    Brick Type
+                </label>
+
+
+                <select id="saleType">
+
+                    <option value="4">
+                        4-Inch Brick — ₹18
+                    </option>
+
+                    <option value="6">
+                        6-Inch Brick — ₹22
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Number Sold
+                </label>
+
+
+                <input
+                    type="number"
+                    id="saleQuantity"
+                    min="1"
+                    placeholder="Example: 10"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <button onclick="recordSale()">
+
+            Record Sale
+
+        </button>
+
+
+
+        <div class="sales-summary">
+
+
+            <div class="sales-item">
+
+                <h4>
+                    4-Inch Sales
+                </h4>
+
+                <strong>
+                    ₹<span id="fourSalesMoney">
+                        0
+                    </span>
+                </strong>
+
+            </div>
+
+
+            <div class="sales-item">
+
+                <h4>
+                    6-Inch Sales
+                </h4>
+
+                <strong>
+                    ₹<span id="sixSalesMoney">
+                        0
+                    </span>
+                </strong>
+
+            </div>
+
+
+            <div class="sales-item">
+
+                <h4>
+                    Total Sales
+                </h4>
+
+                <strong>
+                    ₹<span id="totalSalesMoney">
+                        0
+                    </span>
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WORKERS -->
+
+    <h2 class="section-title">
+        👷 Workers
+    </h2>
+
+
+    <div class="form-box">
+
+
+        <div class="form-grid">
+
+
+            <div>
+
+                <label>
+                    Worker Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="workerName"
+                    placeholder="Example: Ravi"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Bricks Made Today
+                </label>
+
+
+                <input
+                    type="number"
+                    id="workerBricks"
+                    min="0"
+                    placeholder="Example: 200"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <p style="margin-top:15px; color:#666;">
+
+            Worker payment:
+            <strong>₹2 per brick made</strong>
+
+        </p>
+
+
+        <button onclick="addWorker()">
+
+            Add Worker
+
+        </button>
+
+    </div>
+
+
+
+    <!-- WORKER TABLE -->
+
+    <div class="worker-list">
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Worker
+                    </th>
+
+                    <th>
+                        Bricks Made
+                    </th>
+
+                    <th>
+                        Rate
+                    </th>
+
+                    <th>
+                        Salary
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="workerTable">
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+
+    <!-- WORKER TOTAL -->
+
+    <div
+        class="dashboard"
+        style="margin-top:20px;"
+    >
+
+
+        <div class="card">
+
+            <h3>
+                Total Bricks Made
+            </h3>
+
+            <div
+                class="number"
+                id="totalWorkerBricks"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Total Worker Salary
+            </h3>
+
+            <div class="number">
+
+                ₹<span id="totalWorkerSalary">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CALENDAR -->
+
+    <h2 class="section-title">
+        📅 Daily Records
+    </h2>
+
+
+    <div class="calendar-box">
+
+
+        <div class="calendar-header">
+
+
+            <button onclick="previousMonth()">
+                ◀
+            </button>
+
+
+            <div
+                class="calendar-title"
+                id="calendarTitle"
+            >
+            </div>
+
+
+            <button onclick="nextMonth()">
+                ▶
+            </button>
+
+
+        </div>
+
+
+
+        <div class="calendar-days">
+
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+
+        </div>
+
+
+        <div
+            class="calendar-dates"
+            id="calendarDates"
+        >
+        </div>
+
+
+    </div>
+
+
+
+    <!-- RESET -->
+
+    <h2 class="section-title">
+        ⚙️ Data Management
+    </h2>
+
+
+    <div class="form-box">
+
+        <p>
+            Your records are automatically saved on this device.
+        </p>
+
+
+        <button
+            class="danger"
+            onclick="resetAllData()"
+        >
+
+            Delete ALL Data
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<footer>
+
+    <p>
+        🧱 Brick Business Manager
+    </p>
+
+    <p style="margin-top:8px;">
+        Daily business management system
+    </p>
+
+</footer>
+
+
+
+<script>
+
+
+/* =====================================
+   BRICK PRICES
+===================================== */
+
+const FOUR_PRICE = 18;
+
+const SIX_PRICE = 22;
+
+const WORKER_RATE = 2;
+
+
+
+/* =====================================
+   DATE
+===================================== */
+
+let today = new Date();
+
+
+let selectedDate =
+    localStorage.getItem("selectedBrickDate")
+    ||
+    formatDate(today);
+
+
+let calendarDate =
+    new Date(
+        selectedDate + "T00:00:00"
+    );
+
+
+
+/* =====================================
+   FORMAT DATE
+===================================== */
+
+function formatDate(date) {
+
+    let year =
+        date.getFullYear();
+
+    let month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    let day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+
+/* =====================================
+   GET DAILY DATA
+===================================== */
+
+function getDayData(date) {
+
+    let saved =
+        localStorage.getItem(
+            "brickData_" + date
+        );
+
+
+    if (saved) {
+
+        return JSON.parse(saved);
+
+    }
+
+
+    return {
+
+        fourTotal: 0,
+
+        fourSold: 0,
+
+        sixTotal: 0,
+
+        sixSold: 0,
+
+        fourSalesMoney: 0,
+
+        sixSalesMoney: 0,
+
+        workers: []
+
+    };
+
+}
+
+
+
+/* =====================================
+   SAVE DAILY DATA
+===================================== */
+
+function saveDayData(date, data) {
+
+    localStorage.setItem(
+
+        "brickData_" + date,
+
+        JSON.stringify(data)
+
+    );
+
+}
+
+
+
+/* =====================================
+   CURRENT DATA
+===================================== */
+
+function currentData() {
+
+    return getDayData(
+        selectedDate
+    );
+
+}
+
+
+
+/* =====================================
+   CHANGE DATE
+===================================== */
+
+function changeDate() {
+
+    let input =
+        document.getElementById(
+            "selectedDate"
+        );
+
+
+    selectedDate =
+        input.value;
+
+
+    localStorage.setItem(
+        "selectedBrickDate",
+        selectedDate
+    );
+
+
+    calendarDate =
+        new Date(
+            selectedDate + "T00:00:00"
+        );
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+}
+
+
+
+/* =====================================
+   DISPLAY DATE
+===================================== */
+
+function displaySelectedDate() {
+
+    let date =
+        new Date(
+            selectedDate + "T00:00:00"
+        );
+
+
+    let options = {
+
+        day: "numeric",
+
+        month: "long",
+
+        year: "numeric"
+
+    };
+
+
+    document.getElementById(
+        "displayDate"
+    ).innerText =
+        date.toLocaleDateString(
+            "en-IN",
+            options
+        );
+
+
+    document.getElementById(
+        "selectedDate"
+    ).value =
+        selectedDate;
+
+}
+
+
+
+/* =====================================
+   UPDATE DASHBOARD
+===================================== */
+
+function updateDashboard() {
+
+
+    let data =
+        currentData();
+
+
+    let totalBricks =
+        data.fourTotal +
+        data.sixTotal;
+
+
+    let soldBricks =
+        data.fourSold +
+        data.sixSold;
+
+
+    let remainingBricks =
+        totalBricks -
+        soldBricks;
+
+
+    let totalSales =
+        data.fourSalesMoney +
+        data.sixSalesMoney;
+
+
+
+    document.getElementById(
+        "totalBricks"
+    ).innerText =
+        totalBricks;
+
+
+    document.getElementById(
+        "soldBricks"
+    ).innerText =
+        soldBricks;
+
+
+    document.getElementById(
+        "remainingBricks"
+    ).innerText =
+        remainingBricks;
+
+
+    document.getElementById(
+        "todaySales"
+    ).innerText =
+        totalSales;
+
+
+
+    /* 4 INCH */
+
+    document.getElementById(
+        "fourTotal"
+    ).innerText =
+        data.fourTotal;
+
+
+    document.getElementById(
+        "fourSold"
+    ).innerText =
+        data.fourSold;
+
+
+    document.getElementById(
+        "fourRemaining"
+    ).innerText =
+        data.fourTotal -
+        data.fourSold;
+
+
+
+    /* 6 INCH */
+
+    document.getElementById(
+        "sixTotal"
+    ).innerText =
+        data.sixTotal;
+
+
+    document.getElementById(
+        "sixSold"
+    ).innerText =
+        data.sixSold;
+
+
+    document.getElementById(
+        "sixRemaining"
+    ).innerText =
+        data.sixTotal -
+        data.sixSold;
+
+
+
+    /* SALES */
+
+    document.getElementById(
+        "fourSalesMoney"
+    ).innerText =
+        data.fourSalesMoney;
+
+
+    document.getElementById(
+        "sixSalesMoney"
+    ).innerText =
+        data.sixSalesMoney;
+
+
+    document.getElementById(
+        "totalSalesMoney"
+    ).innerText =
+        totalSales;
+
+
+
+    displaySelectedDate();
+
+    updateWorkers();
+
+}
+
+
+
+/* =====================================
+   ADD STOCK
+===================================== */
+
+function addStock() {
+
+
+    let type =
+        document.getElementById(
+            "stockType"
+        ).value;
+
+
+    let quantity =
+        Number(
+            document.getElementById(
+                "stockQuantity"
+            ).value
+        );
+
+
+    if (
+        quantity <= 0
+    ) {
+
+        alert(
+            "Enter a valid quantity."
+        );
+
+        return;
+
+    }
+
+
+    let data =
+        currentData();
+
+
+    if (type === "4") {
+
+        data.fourTotal +=
+            quantity;
+
+    }
+
+    else {
+
+        data.sixTotal +=
+            quantity;
+
+    }
+
+
+    saveDayData(
+        selectedDate,
+        data
+    );
+
+
+    document.getElementById(
+        "stockQuantity"
+    ).value = "";
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+
+    alert(
+        quantity +
+        " bricks added."
+    );
+
+}
+
+
+
+/* =====================================
+   RECORD SALE
+===================================== */
+
+function recordSale() {
+
+
+    let type =
+        document.getElementById(
+            "saleType"
+        ).value;
+
+
+    let quantity =
+        Number(
+            document.getElementById(
+                "saleQuantity"
+            ).value
+        );
+
+
+    if (
+        quantity <= 0
+    ) {
+
+        alert(
+            "Enter a valid quantity."
+        );
+
+        return;
+
+    }
+
+
+    let data =
+        currentData();
+
+
+
+    /* 4 INCH */
+
+    if (
+        type === "4"
+    ) {
+
+
+        let remaining =
+            data.fourTotal -
+            data.fourSold;
+
+
+        if (
+            quantity >
+            remaining
+        ) {
+
+            alert(
+                "Not enough 4-inch bricks in stock."
+            );
+
+            return;
+
+        }
+
+
+        data.fourSold +=
+            quantity;
+
+
+        data.fourSalesMoney +=
+            quantity *
+            FOUR_PRICE;
+
+    }
+
+
+
+    /* 6 INCH */
+
+    else {
+
+
+        let remaining =
+            data.sixTotal -
+            data.sixSold;
+
+
+        if (
+            quantity >
+            remaining
+        ) {
+
+            alert(
+                "Not enough 6-inch bricks in stock."
+            );
+
+            return;
+
+        }
+
+
+        data.sixSold +=
+            quantity;
+
+
+        data.sixSalesMoney +=
+            quantity *
+            SIX_PRICE;
+
+    }
+
+
+
+    saveDayData(
+        selectedDate,
+        data
+    );
+
+
+    document.getElementById(
+        "saleQuantity"
+    ).value = "";
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+
+    alert(
+        "Sale recorded successfully."
+    );
+
+}
+
+
+
+/* =====================================
+   ADD WORKER
+===================================== */
+
+function addWorker() {
+
+
+    let name =
+        document.getElementById(
+            "workerName"
+        ).value.trim();
+
+
+    let bricks =
+        Number(
+            document.getElementById(
+                "workerBricks"
+            ).value
+        );
+
+
+    if (
+        name === ""
+    ) {
+
+        alert(
+            "Enter worker name."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        bricks < 0
+    ) {
+
+        alert(
+            "Enter a valid number."
+        );
+
+        return;
+
+    }
+
+
+    let data =
+        currentData();
+
+
+    let salary =
+        bricks *
+        WORKER_RATE;
+
+
+    data.workers.push({
+
+        name: name,
+
+        bricks: bricks,
+
+        salary: salary
+
+    });
+
+
+    saveDayData(
+        selectedDate,
+        data
+    );
+
+
+    document.getElementById(
+        "workerName"
+    ).value = "";
+
+
+    document.getElementById(
+        "workerBricks"
+    ).value = "";
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+}
+
+
+
+/* =====================================
+   UPDATE WORKERS
+===================================== */
+
+function updateWorkers() {
+
+
+    let data =
+        currentData();
+
+
+    let table =
+        document.getElementById(
+            "workerTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    let totalBricks = 0;
+
+    let totalSalary = 0;
+
+
+
+    data.workers.forEach(
+        function(worker, index) {
+
+
+            totalBricks +=
+                worker.bricks;
+
+
+            totalSalary +=
+                worker.salary;
+
+
+
+            let row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${worker.name}
+                </td>
+
+                <td>
+                    ${worker.bricks}
+                </td>
+
+                <td>
+                    ₹${WORKER_RATE}
+                </td>
+
+                <td class="salary">
+                    ₹${worker.salary}
+                </td>
+
+                <td>
+
+                    <button
+                        class="danger"
+                        onclick="deleteWorker(${index})"
+                    >
+                        Delete
+                    </button>
+
+                </td>
+
+            `;
+
+
+            table.appendChild(
+                row
+            );
+
+
+        }
+    );
+
+
+
+    document.getElementById(
+        "totalWorkerBricks"
+    ).innerText =
+        totalBricks;
+
+
+    document.getElementById(
+        "totalWorkerSalary"
+    ).innerText =
+        totalSalary;
+
+}
+
+
+
+/* =====================================
+   DELETE WORKER
+===================================== */
+
+function deleteWorker(index) {
+
+
+    if (
+        !confirm(
+            "Delete this worker record?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    let data =
+        currentData();
+
+
+    data.workers.splice(
+        index,
+        1
+    );
+
+
+    saveDayData(
+        selectedDate,
+        data
+    );
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+}
+
+
+
+/* =====================================
+   CALENDAR
+===================================== */
+
+function drawCalendar() {
+
+
+    let year =
+        calendarDate.getFullYear();
+
+
+    let month =
+        calendarDate.getMonth();
+
+
+    let monthName =
+        calendarDate.toLocaleString(
+            "en-IN",
+            {
+                month: "long"
+            }
+        );
+
+
+    document.getElementById(
+        "calendarTitle"
+    ).innerText =
+        monthName +
+        " " +
+        year;
+
+
+
+    let dates =
+        document.getElementById(
+            "calendarDates"
+        );
+
+
+    dates.innerHTML = "";
+
+
+
+    let firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    let daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+
+    /* EMPTY DAYS */
+
+    for (
+        let i = 0;
+        i < firstDay;
+        i++
+    ) {
+
+        let empty =
+            document.createElement(
+                "div"
+            );
+
+
+        dates.appendChild(
+            empty
+        );
+
+    }
+
+
+
+    /* DATES */
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+
+        let date =
+            new Date(
+                year,
+                month,
+                day
+            );
+
+
+        let dateString =
+            formatDate(date);
+
+
+        let div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "calendar-date";
+
+
+        div.innerText =
+            day;
+
+
+
+        /* TODAY */
+
+        if (
+            dateString ===
+            formatDate(
+                new Date()
+            )
+        ) {
+
+            div.classList.add(
+                "today"
+            );
+
+        }
+
+
+
+        /* SELECTED */
+
+        if (
+            dateString ===
+            selectedDate
+        ) {
+
+            div.classList.add(
+                "selected"
+            );
+
+        }
+
+
+
+        /* DATA EXISTS */
+
+        let saved =
+            localStorage.getItem(
+                "brickData_" +
+                dateString
+            );
+
+
+        if (saved) {
+
+
+            let dayData =
+                JSON.parse(saved);
+
+
+            let hasData =
+                dayData.fourTotal > 0 ||
+                dayData.sixTotal > 0 ||
+                dayData.fourSold > 0 ||
+                dayData.sixSold > 0 ||
+                dayData.workers.length > 0;
+
+
+            if (
+                hasData
+            ) {
+
+                div.classList.add(
+                    "has-data"
+                );
+
+            }
+
+        }
+
+
+
+        /* CLICK */
+
+        div.onclick =
+            function() {
+
+                selectedDate =
+                    dateString;
+
+
+                localStorage.setItem(
+                    "selectedBrickDate",
+                    selectedDate
+                );
+
+
+                calendarDate =
+                    new Date(
+                        selectedDate +
+                        "T00:00:00"
+                    );
+
+
+                updateDashboard();
+
+                drawCalendar();
+
+            };
+
+
+
+        dates.appendChild(
+            div
+        );
+
+    }
+
+}
+
+
+
+/* =====================================
+   PREVIOUS MONTH
+===================================== */
+
+function previousMonth() {
+
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() - 1
+    );
+
+
+    drawCalendar();
+
+}
+
+
+
+/* =====================================
+   NEXT MONTH
+===================================== */
+
+function nextMonth() {
+
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() + 1
+    );
+
+
+    drawCalendar();
+
+}
+
+
+
+/* =====================================
+   RESET ALL DATA
+===================================== */
+
+function resetAllData() {
+
+
+    if (
+        !confirm(
+            "WARNING!\n\nThis will delete ALL daily records.\n\nAre you sure?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    let keys = [];
+
+
+    for (
+        let i = 0;
+        i < localStorage.length;
+        i++
+    ) {
+
+        let key =
+            localStorage.key(i);
+
+
+        if (
+            key &&
+            key.startsWith(
+                "brickData_"
+            )
+        ) {
+
+            keys.push(key);
+
+        }
+
+    }
+
+
+    keys.forEach(
+        function(key) {
+
+            localStorage.removeItem(
+                key
+            );
+
+        }
+    );
+
+
+    updateDashboard();
+
+    drawCalendar();
+
+
+    alert(
+        "All data has been deleted."
+    );
+
+}
+
+
+
+/* =====================================
+   START APPLICATION
+===================================== */
+
+document.getElementById(
+    "selectedDate"
+).value =
+    selectedDate;
+
+
+updateDashboard();
+
+drawCalendar();
+
+
+</script>
+
+
+</body>
+
+</html>
